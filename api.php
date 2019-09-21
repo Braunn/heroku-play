@@ -23,8 +23,8 @@
     //I chose to get associative arrays inside of a big array
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-    $results = json_encode($results);
     $results->subracks = makeCombos($results->rack);
+    $results = json_encode($results);
 
     //this part is perhaps overkill but I wanted to set the HTTP headers and status code
     //making to this line means everything was great with this request
