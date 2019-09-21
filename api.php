@@ -1,5 +1,7 @@
 <?php
     ini_set('display_errors',1);
+    ini_set('display_startup_errors',1);
+    error_reporting(E_ALL);
 
     //this is the basic way of getting a database handler from PDO, PHP's built in quasi-ORM
     $dbhandle = new PDO("sqlite:scrabble.sqlite") or die("Failed to open DB");
@@ -28,18 +30,34 @@
     //this lets the browser know to expect json
     header('Content-Type: application/json');
     //this creates json and gives it back to the browser
-    //echo json_encode($results);
+    echo json_encode($results);
 
-    // helps to make combos of racks by distributing one char to all strings in the strArray
-    function distChar(Array $strArray, Char $character){
-      $alen = count($strArray);
+    // creates an array with all the combos of chars in aString
+    // combo strings will be in alphabetical order as long as input string is
+    // POTENTIAL PROBLEM: second element of array will be empty string
+    function makeCombos(String $aString){
+          $comboList = Array($aString[0],"");
+          $aLen = strlen($aString);
+          $index = 1;
+          while($index < $aLen){
+              //echo implode(" ",$comboList)."<br>";
+              $comboList = array_merge($comboList, distChar($comboList, $aString[$index]));
+              $index ++;
+          }
 
-      for($i = 0; $i < $alen; $i++){
-        $strArray[$i] = $strArray[$i] + $character;
-      }
+          return $comboList;
+      };
 
-      return $strArray;
-    }
+      // distributes a string called character amongst all the strings in the $strArray
+      // returns an array with all the combos (use implode to cast to string)
+      function distChar(Array $strArray, String $character){
+        $alen = count($strArray);
 
-    echo distChar(Array("a","b"),"c");
+        for($i = 0; $i < $alen; $i++){
+          $strArray[$i] = $strArray[$i].$character;
+        }
+
+        return $strArray;
+      };
+
 ?>
