@@ -24,6 +24,7 @@
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     $results = json_encode($results);
+    echo "<h1>$results<h2>";
     $results = $results.implode(",",makeCombos($results->rack));
 
     //this part is perhaps overkill but I wanted to set the HTTP headers and status code
