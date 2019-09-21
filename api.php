@@ -27,6 +27,18 @@
     //this lets the browser know to expect json
     header('Content-Type: application/json');
     //this creates json and gives it back to the browser
-    echo json_encode($results);
+    //echo json_encode($results);
 
+    // helps to make combos of racks by distributing one char to all strings in the strArray
+    function distChar(Array $strArray, Char $character){
+      $alen = count($strArray);
+
+      for($i = 0; $i < $alen; $i++){
+        $strArray[$i] = $strArray[$i] + $character;
+      }
+
+      return $strArray;
+    }
+
+    echo distChar(Array("a","b"),"c");
 ?>
