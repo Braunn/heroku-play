@@ -1,4 +1,5 @@
 <?php
+    // show errors
     ini_set('display_errors',1);
     ini_set('display_startup_errors',1);
     error_reporting(E_ALL);
@@ -7,10 +8,7 @@
     $dbhandle = new PDO("sqlite:scrabble.sqlite") or die("Failed to open DB");
     if (!$dbhandle) die ($error);
 
-    //this is a sample query which gets some data, the order by part shuffles the results
-    //the limit 0, 10 takes the first 10 results.
-    // you might want to consider taking more results, implementing "pagination",
-    // ordering by rank, etc.
+    //this is a sample query which gets some data
     $query = "SELECT rack, words FROM racks WHERE length=7 order by random() limit 1";
 
     //this next line could actually be used to provide user_given input to the query to
@@ -18,12 +16,10 @@
     $statement = $dbhandle->prepare($query);
     $statement->execute();
 
-    //The results of the query are typically many rows of data
-    //there are several ways of getting the data out, iterating row by row,
-    //I chose to get associative arrays inside of a big array
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
-    $results = $statement->fetchAll(PDO::FETCH_ASSOC);// $results is an array
-    $results = json_encode("rack"=>$results["rack"]);
+    // $results is an array
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $results = json_encode(Array("rack"=>$results["rack"]));
     //echo "<h1>".$results."<h2>";
     //$results = $results.implode(",",makeCombos($results->rack));
 
