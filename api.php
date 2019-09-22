@@ -18,7 +18,7 @@
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
     // $results is an array
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($results[0]);
+    echo json_encode($results);
     /*
     // GETS WORDS FROM SUBRACKS
     $subracks = makeCombos($results[0]["rack"]);
