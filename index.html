@@ -24,7 +24,7 @@
         $.ajax({
             method: "GET",
             url: "api.php",
-            success: newRack=>{ showRack(JSON.stringify(newRack))}
+            success: newRack=>{ showRack(newRack)}
         });
       });
     });
