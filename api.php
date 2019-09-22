@@ -19,9 +19,7 @@
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
     // $results is an array
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-    $results = json_encode(Array("rack"=>$results["rack"]));
-    //echo "<h1>".$results."<h2>";
-    //$results = $results.implode(",",makeCombos($results->rack));
+    $results = array_merge($resuts,makeCombos($results["rack"]));
 
     //this part is perhaps overkill but I wanted to set the HTTP headers and status code
     //making to this line means everything was great with this request
@@ -29,7 +27,7 @@
     //this lets the browser know to expect json
     header('Content-Type: application/json');
     //this creates json and gives it back to the browser
-    echo $results;
+    echo json_encode($results);
 
     // creates an array with all the combos of chars in aString
     // combo strings will be in alphabetical order as long as input string is
