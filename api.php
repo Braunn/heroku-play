@@ -18,13 +18,16 @@
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
     // $results is an array
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $results = $results[0];
 
-    /*
+
     // GETS WORDS FROM SUBRACKS
     $subracks = makeCombos($results[0]["rack"]);
     $numberOfSubracks = count($subracks);
     $allWords = Array("words".$maxRackLength=>explode("@@",$results[0]["words"]));
 
+    $results = $results + Array("subracks"=>$subracks) + $allWords;
+    /*
     for($i = 0; $i < $numberOfSubracks; $i++){
         $subrack = $subracks[$i];
         $subrackLen = strval(strlen($subrack)); // gets length of words that you could make with this rack
@@ -70,7 +73,7 @@
     //
     // HELPER FUNCTIONS
     //
-
+    /*
     function insertIntoAllWords(String $istr, String $length, Array $allWords){
         // checks if array key exists and handles insertion accordingly
         $key = "words".$length;
@@ -81,6 +84,7 @@
             $allWords[$key] = explode("@@", $istr);
         }
     }
+    */
 
     // creates an array with all the combos of chars in aString
     // combo strings will be in alphabetical order as long as input string is
