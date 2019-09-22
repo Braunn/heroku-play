@@ -23,7 +23,7 @@
     //I chose to get associative arrays inside of a big array
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-    $results = json_encode($results);
+    $results = gettype($results);
     //echo "<h1>".$results."<h2>";
     //$results = $results.implode(",",makeCombos($results->rack));
 
