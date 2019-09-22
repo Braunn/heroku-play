@@ -26,7 +26,7 @@
     $numberOfSubracks = count($subracks);
     $allWords = Array("words".$maxRackLength=>explode("@@",$results[0]["words"]));
 
-    $results = $results + Array("subracks"=>$subracks) + $allWords;
+    $results = $results + Array("subracks"=>$subracks, "sublen"=> $numberOfSubracks) + $allWords;
     /*
     for($i = 0; $i < $numberOfSubracks; $i++){
         $subrack = $subracks[$i];
