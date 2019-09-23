@@ -1,9 +1,11 @@
 body{
   background-color: powderblue;
+  text-align: center;
+  color: white;
 }
 h1{
   background-color: yellow;
 }
 li{
-  background-color: green;
+  background-color: yellow;
 }
