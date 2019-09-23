@@ -30,7 +30,7 @@
         // init answerKey update rack and clear scoreBoard
         answerKeyJson = newRack;
         progressJson = {};
-        document.querySelector("#rack").innerText = JSON.stringify(newRack);
+        document.querySelector("#rack").innerText = "Use the letters in ".concat(answerKeyJson["rack"], " to make all the words!");
         $("#scoreBoard").empty();
         //console.log(Object.keys(newRack).length);
         //console.log(newRack.hasOwnProperty("words"));
@@ -115,6 +115,10 @@
         $("#scoreBoard").empty();
 
         var possibleKeys = Object.keys(answerKeyJson).slice(2,Object.keys(answerKeyJson).length);
+
+        // for some reason words7 comes first all the time so we are putting the first el to the back!
+        possibleKeys = possibleKeys.slice(1,possibleKeys.length-1).push(possibleKeys.slice(0,1));
+
         var index = 0;
         // iterate through all possible keys
         while(index < possibleKeys.length){
