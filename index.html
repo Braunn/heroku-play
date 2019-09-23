@@ -12,20 +12,129 @@
   <body>
     <h1>Text Twist</h1>
     <button id="rerack">Fetch New Rack</button>
-    <h2 id="rack"><h2>
+    <p id="rack"><p>
+        <ul id="scoreBoard">
+
+        </ul>
+    <input id="userGuess" placeholder="use rack to make a word">
+    <button id="enterGuess">Enter</button>
   </body>
+
   <script>
     $(document).ready(function(){
 
-      let showRack = function(newRack){
-        document.querySelector("#rack").innerText = newRack;
+        var progressJson = {};
+        var answerKeyJson = {};
+
+      let initScoreBoard = function(newRack){
+        // init answerKey update rack and clear scoreBoard
+        answerKeyJson = newRack;
+        progressJson = {};
+        document.querySelector("#rack").innerText = JSON.stringify(newRack);
+        $("#scoreBoard").empty();
+        //console.log(Object.keys(newRack).length);
+        //console.log(newRack.hasOwnProperty("words"));
+
+        var index = 1;
+        var wordsNeedTotal = 0;
+
+        // goes through all the words you can make and adds it to scoreBoard and sets word counts for progress
+        //console.log(Object.keys(newRack));
+        while(index <= Object.keys(newRack).length){
+
+            // sets up key that we expect in newRack JSON
+            var wordString = "words".concat(index.toString());
+
+            if(newRack.hasOwnProperty(wordString)){
+                // has that key
+
+                var wordsOfSizeX = newRack[wordString];// gets number of words of x size
+                //console.log($("#scoreBoard"));
+
+                // adds bullets to show count for each word type that needs to be guessed and adds that count to progress
+                 $("#scoreBoard").append('<li>'.concat("Words left of size ",index.toString(),": ",wordsOfSizeX.length.toString()));
+                 progressJson["Words left of size ".concat(index.toString())] = wordsOfSizeX.length;
+
+                 wordsNeedTotal += wordsOfSizeX.length;
+            }
+            index ++;
+        }
+        // adds total values to scoreboard and progress json
+        $("#scoreBoard").append('<li>'.concat("WORDS LEFT IN TOTAL: ", wordsNeedTotal.toString()));
+        progressJson["total"] = wordsNeedTotal;
       }
 
+      // gets user input
+      $("#enterGuess").on("click",function(){
+          var wordGuessed = document.getElementById("userGuess").value.toUpperCase();
+          var wordGuessedLen = wordGuessed.length;
+          console.log(wordGuessed);
+
+          var keySearch = "words".concat(wordGuessedLen.toString());
+
+          // if in answers got to next check in insertIntoProgressJson
+          if(answerKeyJson.hasOwnProperty(keySearch)){
+              var wordsArray = answerKeyJson[keySearch];
+              var index = 0;
+              while(index < wordsArray.length){
+                  if(wordsArray[index] == wordGuessed){
+                      // insert wordGuessed into progressJson is not already guessed
+                     insertIntoProgressJson(wordGuessed, keySearch);
+                  }
+                  index++;
+              }
+          }
+
+      });
+
+    let insertIntoProgressJson = function(iword , ikey){
+        // handles inserting into progressJson if it isnt a repeat
+
+        if(progressJson.hasOwnProperty(ikey)){
+            // user has at least one word of lenght x done alreay
+
+            if(!progressJson[ikey].includes(iword)){
+                // update json and scoreboad if iword is not in there
+                progressJson[ikey].push(iword);
+                progressJson["Words left of size ".concat(iword.length)] -= 1;
+                progressJson["total"] -= 1;
+                updateScoreBoard();
+            }
+        }
+        else{
+            // user has no words of length x so add and go right to update
+            progressJson[ikey] = [iword];
+            progressJson["Words left of size ".concat(iword.length)] -= 1;
+            progressJson["total"] -= 1;
+            updateScoreBoard();
+        }
+    }
+
+    let updateScoreBoard = function(){
+
+        $("#scoreBoard").empty();
+
+        var possibleKeys = Object.keys(answerKeyJson).slice(2,Object.keys(answerKeyJson).length);
+        var index = 0;
+        // iterate through all possible keys
+        while(index < possibleKeys.length){
+            var wordSize = possibleKeys[index].split("")[possibleKeys[index].length-1];
+            $("#scoreBoard").append('<li>'.concat("Words left of size ",wordSize,": ",progressJson["Words left of size ".concat(wordSize)]));
+            index++;
+        }
+        $("#scoreBoard").append('<li>'.concat("WORDS LEFT IN TOTAL: ", progressJson["total"].toString()));
+
+        if(progressJson["total"] == 0){
+            document.querySelector("#rack").innerText = "CONGRATS YOU GOT ALL THE WORDS! HIT NEW RACK TO PLAY AGAIN"
+        }
+    }
+
+      // gets a rack from server and all the words (organized by length)
       $("#rerack").on("click", function(){
         $.ajax({
             method: "GET",
             url: "api.php",
-            success: newRack=>{ showRack(JSON.stringify(newRack))}
+            success: newRack=>{ initScoreBoard(newRack)}
         });
       });
     });
