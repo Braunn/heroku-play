@@ -14,6 +14,7 @@
     <h1>Text Twist</h1>
     <button id="rerack">Fetch New Rack</button>
     <p id="rack"><p>
+    <p id="rightAnswers"></p>
         <ul id="scoreBoard">
 
         </ul>
@@ -99,6 +100,7 @@
                 progressJson[ikey].push(iword);
                 progressJson["Words left of size ".concat(iword.length)] -= 1;
                 progressJson["total"] -= 1;
+                document.getElementById('rightAnswers').value.concat(iword);
                 updateScoreBoard();
             }
         }
@@ -107,6 +109,7 @@
             progressJson[ikey] = [iword];
             progressJson["Words left of size ".concat(iword.length)] -= 1;
             progressJson["total"] -= 1;
+            document.getElementById('rightAnswers').value.concat(iword);
             updateScoreBoard();
         }
     }
