@@ -14,7 +14,7 @@
     <h1>Text Twist</h1>
     <button id="rerack">Fetch New Rack</button>
     <p id="rack"><p>
-    <p id="rightAnswers"></p>
+    <p id="rightAnswers"> </p>
         <ul id="scoreBoard">
 
         </ul>
@@ -32,6 +32,7 @@
         // init answerKey update rack and clear scoreBoard
         answerKeyJson = newRack;
         progressJson = {};
+        document.getElementById('rightAnswers').value = "Words you got: ";
         document.querySelector("#rack").innerText = "Use the letters in ".concat(answerKeyJson["rack"], " to make all the words!");
         $("#scoreBoard").empty();
         //console.log(Object.keys(newRack).length);
