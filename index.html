@@ -101,7 +101,7 @@
                 progressJson[ikey].push(iword);
                 progressJson["Words left of size ".concat(iword.length)] -= 1;
                 progressJson["total"] -= 1;
-                document.getElementById('rightAnswers').value = document.getElementById('rightAnswers').value.concat(iword, " ");
+                document.getElementById('rightAnswers').innerText = document.getElementById('rightAnswers').value.concat(iword, " ");
                 updateScoreBoard();
             }
         }
@@ -110,7 +110,7 @@
             progressJson[ikey] = [iword];
             progressJson["Words left of size ".concat(iword.length)] -= 1;
             progressJson["total"] -= 1;
-            document.getElementById('rightAnswers').value = document.getElementById('rightAnswers').value.concat(iword, " ");
+            document.getElementById('rightAnswers').innerText = document.getElementById('rightAnswers').value.concat(iword, " ");
             updateScoreBoard();
         }
     }
