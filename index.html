@@ -135,9 +135,9 @@
 
         // for some reason words7 comes first all the time so we are putting the first el to the back!
         //possibleKeys = possibleKeys.slice(1,possibleKeys.length-1).push(possibleKeys.slice(0,1));
-        //var words7 = possibleKeys[0];
-        //possibleKeys = possibleKeys.slice(2,possibleKeys.length-1);
-        //possibleKeys.push(words7);
+        var words7 = possibleKeys[0];
+        possibleKeys = possibleKeys.slice(1,possibleKeys.length-1);
+        possibleKeys.push(words7);
 
         var index = 0;
         // iterate through all possible keys
