@@ -25,7 +25,7 @@
     // GETS WORDS FROM SUBRACKS
     $subracks = makeCombos($results["rack"]);
     $numberOfSubracks = count($subracks);
-    $allWords = Array("words".$maxRackLength=>explode("@@",$results["words"]));
+    $allWords = Array("words".$maxRackLength=>explode("@@",$results["words"]),"subracks"=>$subracks);
 
     $sArray = Array();
     $tArray = Array("place"=>"holder");
