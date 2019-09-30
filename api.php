@@ -62,7 +62,7 @@
 
             // ensures the subrack has some words
             if(array_key_exists(0,$response)){
-                insertIntoAllWords($response[0]["words"], $subrackLen, $allWords);
+                insertIntoAllWords($response[0]["words"], $subrackLen);
             }
         }
     }
