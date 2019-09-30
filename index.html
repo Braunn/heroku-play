@@ -29,13 +29,14 @@
         var progressJson = {};
         var answerKeyJson = {};
 
-        // for debugging
-        document.getElementById("answerj").innerText = JSON.stringify(answerKeyJson);
 
       let initScoreBoard = function(newRack){
         // init answerKey update rack and clear scoreBoard
         answerKeyJson = newRack;
         progressJson = {};
+
+        // for debugging
+        document.getElementById("answerj").innerText = JSON.stringify(answerKeyJson);
 
         //console.log(JSON.stringify(newRack));
         document.getElementById('rightAnswers').innerText = "Right answers will show here";
