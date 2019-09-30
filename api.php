@@ -67,6 +67,7 @@
 
             // ensures the subrack has some words
             if(array_key_exists(0,$response)){
+                $tArray = $tArray + Array($subrack => $response);// debugging
                 insertIntoAllWords($response[0]["words"], $subrackLen);
             }
         }
