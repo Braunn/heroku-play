@@ -12,6 +12,7 @@
   </head>
   <body>
     <h1>Text Twist</h1>
+    <h2 id="answerj"></h2>
     <button id="rerack">Fetch New Rack</button>
     <p id="rack"><p>
     <p id="rightAnswers"><p>
@@ -27,6 +28,9 @@
 
         var progressJson = {};
         var answerKeyJson = {};
+
+        // for debugging
+        document.getElementById("answerj").innerText = JSON.stringify(answerKeyJson);
 
       let initScoreBoard = function(newRack){
         // init answerKey update rack and clear scoreBoard
