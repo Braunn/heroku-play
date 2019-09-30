@@ -39,16 +39,7 @@
 
         $sArray = $sArray + Array($subrack =>$subrackLen);
 
-        if($subrackLen == 1){
-            // check for a and I
-            if($subrack == "A" or $subrack == "I"){
-                insertIntoAllWords($subrack, $subrackLen);
-            }
-        }
-        elseif($subrackLen == 0){
-            // do nothing!
-        }
-        else {
+        if($subrackLen > 1) {
             // prepare and get query
 
             $getWordsQuery = "SELECT words FROM racks WHERE rack='".$subrack."'";
