@@ -10,9 +10,9 @@
 
     //get query response
     //gets random rack length of 7
-    $maxRackLength = "4";
-    //$query = "SELECT rack, words FROM racks WHERE length=".$maxRackLength." order by random() limit 1";
-    $query = "SELECT rack, words from racks where rack="."'ANSV'";
+    $maxRackLength = "7";
+    $query = "SELECT rack, words FROM racks WHERE length=".$maxRackLength." order by random() limit 1";
+    //$query = "SELECT rack, words from racks where rack="."'ANSV'";
     $statement = $dbhandle->prepare($query);
     $statement->execute();
 
@@ -28,11 +28,11 @@
     $allWords = Array("words".$maxRackLength=>explode("@@",$results["words"]),"subracks"=>$subracks);
 
     $sArray = Array();
-    $tArray = Array();
-    $iterationTimes = 0; // debugging
+    //$tArray = Array();
+    //$iterationTimes = 0; // debugging
 
     for($i = 0; $i < $numberOfSubracks; $i++){
-        $iterationTimes = $iterationTimes + 1; // debugging
+        //$iterationTimes = $iterationTimes + 1; // debugging
 
         $subrack = $subracks[$i];
         $subrackLen = strval(strlen($subrack)); // gets length of words that you could make with this rack
@@ -57,7 +57,7 @@
             $statement0->execute();
             $response = $statement0->fetchAll(PDO::FETCH_ASSOC); // gets key value array rack,words index 2
 
-            $tArray = $tArray + Array($subrack => $response);// debugging
+            //$tArray = $tArray + Array($subrack => $response);// debugging
 
             /*
             if(array_key_exists(0,$response)){
@@ -67,7 +67,7 @@
 
             // ensures the subrack has some words
             if(array_key_exists(0,$response)){
-                $tArray = $tArray + Array($subrack => $response);// debugging
+                //$tArray = $tArray + Array($subrack => $response);// debugging
                 insertIntoAllWords($response[0]["words"], $subrackLen);
             }
         }
