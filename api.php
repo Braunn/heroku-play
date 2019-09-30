@@ -12,7 +12,7 @@
     //gets random rack length of 7
     $maxRackLength = "4";
     //$query = "SELECT rack, words FROM racks WHERE length=".$maxRackLength." order by random() limit 1";
-    $query = "SELECT rack, words FROM racks WHERE rack="ANSV"";
+    $query = "SELECT rack, words from racks where rack="."'ANSV'";
     $statement = $dbhandle->prepare($query);
     $statement->execute();
 
