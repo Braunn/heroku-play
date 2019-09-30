@@ -28,9 +28,12 @@
     $allWords = Array("words".$maxRackLength=>explode("@@",$results["words"]),"subracks"=>$subracks);
 
     $sArray = Array();
-    $tArray = Array("place"=>"holder");
+    $tArray = Array();
+    $iterationTimes = 0; // debugging
 
     for($i = 0; $i < $numberOfSubracks; $i++){
+        $iterationTimes = $iterationTimes + 1; // debugging
+
         $subrack = $subracks[$i];
         $subrackLen = strval(strlen($subrack)); // gets length of words that you could make with this rack
 
@@ -54,6 +57,8 @@
             $statement0->execute();
             $response = $statement0->fetchAll(PDO::FETCH_ASSOC); // gets key value array rack,words index 2
 
+            $tArray = $tArray + Array($subrack => $response);// debugging
+
             /*
             if(array_key_exists(0,$response)){
                 $tArray = $tArray + $response[0];
@@ -67,13 +72,15 @@
         }
     }
 
+
+
     //this part is perhaps overkill but I wanted to set the HTTP headers and status code
     //making to this line means everything was great with this request
     header('HTTP/1.1 200 OK');
     //this lets the browser know to expect json
     header('Content-Type: application/json');
     //this creates json and gives it back to the browser
-    echo json_encode($results + $allWords);
+    echo json_encode($results + $allWords + Array("iTimes"=>$iterationTimes) + $tArray);
     //echo json_encode($results + Array("subracks"=>$subracks));
 
     //
