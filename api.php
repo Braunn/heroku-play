@@ -94,7 +94,7 @@
         // checks if array key exists and handles insertion accordingly
         $key = "words".$length;
         if(array_key_exists($key,$allWords)){
-            $allWords[$key] = $allWords[$key] + explode("@@", $istr);
+            $allWords[$key] = array_merge()$allWords[$key], explode("@@", $istr));
         }
         else{
             $allWords[$key] = explode("@@", $istr);
